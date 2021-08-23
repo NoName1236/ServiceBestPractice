@@ -43,7 +43,7 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer> {
             String filename = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
             String dictionary = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
             file = new File(dictionary + filename);
-            if (file.exists()) {
+            if (file.exists()) {//断点续传
                 downloaded_length = file.length();
             }
             long contentLength = getContentLength(downloadUrl);
@@ -72,7 +72,7 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer> {
                         savedFile.write(b, 0, len);
                     }
                     int progress = (int) ((total + downloaded_length) * 100 / contentLength);
-                    publishProgress(progress);
+                    publishProgress(progress);//通知下载进程
                 }
                 response.body().close();
                 return TYPE_SUCCESS;
