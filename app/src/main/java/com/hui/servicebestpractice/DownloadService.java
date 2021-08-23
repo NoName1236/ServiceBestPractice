@@ -61,7 +61,7 @@ public class DownloadService extends Service {
     };
 
     private DownloadBinder mBinder = new DownloadBinder();
-
+    private String CHANNEL_ONE_ID="CHANNEL_ONE_ID";
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
@@ -110,9 +110,9 @@ public class DownloadService extends Service {
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentIntent(pi);
         builder.setContentTitle(title);
+        builder.setChannelId(CHANNEL_ONE_ID);
         if (progress >= 0) {
-            builder.setContentText(progress + "%");
-            builder.setProgress(100, progress, false);
+            builder.setContentText(progress + "%").setProgress(100, progress, false);
         }
         return builder.build();
     }
